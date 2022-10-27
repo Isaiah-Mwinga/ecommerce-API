@@ -15,3 +15,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
+
+@app.get("/Items")
+def read_items():
+    return [{"item_id": "Foo"}]
