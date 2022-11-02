@@ -6,6 +6,9 @@ class User(BaseModel):
     hashed_password: str
     is_active: bool
 
+    class Config:
+        orm_mode = True
+
 class Item(BaseModel):
     id: int
     title: str
@@ -13,4 +16,6 @@ class Item(BaseModel):
     owner_id: int
     price: float
 
-    
+    class Config:
+        orm_mode = True
+
