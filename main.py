@@ -2,6 +2,8 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from .database import SessionLocal, engine
+
+from . import models, schemas
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
@@ -18,6 +20,16 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
+
+
+oauth2_scheme = OAuth2passwordBearer(tokenUrl="token")
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 @app.get("/Items")
 def read_items():
