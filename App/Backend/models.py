@@ -20,3 +20,21 @@ class Item(Base):
     price = Column(float)
 
     owner = relationship("User", back_populates="items")    
+
+class categories(Base):
+    __tablename__ = "categories"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    description = Column(String, index=True)
+    owner_id = Column(Integer, ForeignKey("users.id"))
+
+    owner = relationship("Item", back_populates="categories")
+
+class subcategories(Base):
+    __tablename__ = "subcategories"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    description = Column(String, index=True)
+    owner_id = Column(Integer, ForeignKey("users.id"))
+
+    owner = relationship("Item", back_populates="subcategories")
