@@ -30,11 +30,38 @@ class categories(Base):
 
     owner = relationship("Item", back_populates="categories")
 
-class subcategories(Base):
-    __tablename__ = "subcategories"
+class computing(categories):
+    __tablename__ = "computing"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     description = Column(String, index=True)
     owner_id = Column(Integer, ForeignKey("users.id"))
 
-    owner = relationship("Item", back_populates="subcategories")
+    owner = relationship("Item", back_populates="computing")
+
+class electronics(categories):
+    __tablename__ = "electronics"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, index=True)
+    description = Column(String, index=True)
+    owner_id = Column(Integer, ForeignKey("users.id"))
+
+    owner = relationship("Item", back_populates="electronics")
+
+    class Gaming(categories):
+        __tablename__ = "gaming"
+        id = Column(Integer, primary_key=True, index=True)
+        name = Column(String, index=True)
+        description = Column(String, index=True)
+        owner_id = Column(Integer, ForeignKey("users.id"))
+
+        owner = relationship("Item", back_populates="gaming")
+
+    class Mobile(categories):
+        __tablename__ = "mobile"
+        id = Column(Integer, primary_key=True, index=True)
+        name = Column(String, index=True)
+        description = Column(String, index=True)
+        owner_id = Column(Integer, ForeignKey("users.id"))
+
+        owner = relationship("Item", back_populates="mobile")
