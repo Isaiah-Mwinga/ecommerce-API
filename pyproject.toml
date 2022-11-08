@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "e-commerce-using-fastapi-vue-js"
+version = "0.1.0"
+description = ""
+authors = ["Isaiah-Mwinga <motongori@marketforce360.com>"]
+readme = "README.md"
+packages = [{include = "e_commerce_using_fastapi_vue_js"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pendulum = "^2.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
