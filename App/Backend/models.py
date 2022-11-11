@@ -35,7 +35,7 @@ class computing(categories):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     description = Column(String, index=True)
-    owner_id = Column(Integer, ForeignKey("users.id"))
+    price = Column(float)
 
     owner = relationship("Item", back_populates="computing")
 
@@ -44,7 +44,7 @@ class computing(categories):
         id = Column(Integer, primary_key=True, index=True)
         name = Column(String, index=True)
         description = Column(String, index=True)
-        owner_id = Column(Integer, ForeignKey("users.id"))
+        price = Column(float)
 
         owner = relationship("Item", back_populates="Laptops")
 
@@ -53,7 +53,7 @@ class computing(categories):
             id = Column(Integer, primary_key=True, index=True)
             name = Column(String, index=True)
             description = Column(String, index=True)
-            owner_id = Column(Integer, ForeignKey("users.id"))
+            price = Column(float)
 
             owner = relationship("Item", back_populates="Macbook")
 
@@ -62,7 +62,7 @@ class computing(categories):
             id = Column(Integer, primary_key=True, index=True)
             name = Column(String, index=True)
             description = Column(String, index=True)
-            owner_id = Column(Integer, ForeignKey("users.id"))
+            price = Column(float)
 
             owner = relationship("Item", back_populates="Windows")
 
@@ -71,7 +71,7 @@ class computing(categories):
         id = Column(Integer, primary_key=True, index=True)
         name = Column(String, index=True)
         description = Column(String, index=True)
-        owner_id = Column(Integer, ForeignKey("users.id"))
+        price = Column(float)
 
         owner = relationship("Item", back_populates="Desktops")
 
@@ -80,7 +80,7 @@ class computing(categories):
             id = Column(Integer, primary_key=True, index=True)
             name = Column(String, index=True)
             description = Column(String, index=True)
-            owner_id = Column(Integer, ForeignKey("users.id"))
+            price = Column(float)
 
             owner = relationship("Item", back_populates="Macbook")
 
@@ -89,7 +89,7 @@ class computing(categories):
             id = Column(Integer, primary_key=True, index=True)
             name = Column(String, index=True)
             description = Column(String, index=True)
-            owner_id = Column(Integer, ForeignKey("users.id"))
+            price = Column(float)
 
             owner = relationship("Item", back_populates="Windows")
 
@@ -98,7 +98,7 @@ class computing(categories):
         id = Column(Integer, primary_key=True, index=True)
         name = Column(String, index=True)
         description = Column(String, index=True)
-        owner_id = Column(Integer, ForeignKey("users.id"))
+        price = Column(float)
 
         owner = relationship("Item", back_populates="Tablets")
 
@@ -107,7 +107,7 @@ class computing(categories):
             id = Column(Integer, primary_key=True, index=True)
             name = Column(String, index=True)
             description = Column(String, index=True)
-            owner_id = Column(Integer, ForeignKey("users.id"))
+            price = Column(float)
 
             owner = relationship("Item", back_populates="Apple")
 
@@ -116,7 +116,7 @@ class computing(categories):
             id = Column(Integer, primary_key=True, index=True)
             name = Column(String, index=True)
             description = Column(String, index=True)
-            owner_id = Column(Integer, ForeignKey("users.id"))
+            price = Column(float)
 
             owner = relationship("Item", back_populates="Android")
 
