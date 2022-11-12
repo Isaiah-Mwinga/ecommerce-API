@@ -36,6 +36,7 @@ class computing(categories):
     name = Column(String, index=True)
     description = Column(String, index=True)
     price = Column(float)
+    product_image = Column(String, index=True)
 
     owner = relationship("Item", back_populates="computing")
 
@@ -45,6 +46,7 @@ class computing(categories):
         name = Column(String, index=True)
         description = Column(String, index=True)
         price = Column(float)
+        product_image = Column(String, index=True)
 
         owner = relationship("Item", back_populates="Laptops")
 
@@ -54,6 +56,7 @@ class computing(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Macbook")
 
@@ -63,6 +66,7 @@ class computing(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Windows")
 
@@ -72,6 +76,7 @@ class computing(categories):
         name = Column(String, index=True)
         description = Column(String, index=True)
         price = Column(float)
+        product_image = Column(String, index=True)
 
         owner = relationship("Item", back_populates="Desktops")
 
@@ -81,6 +86,7 @@ class computing(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Macbook")
 
@@ -90,6 +96,7 @@ class computing(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Windows")
 
@@ -99,6 +106,7 @@ class computing(categories):
         name = Column(String, index=True)
         description = Column(String, index=True)
         price = Column(float)
+        product_image = Column(String, index=True)
 
         owner = relationship("Item", back_populates="Tablets")
 
@@ -108,6 +116,7 @@ class computing(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Apple")
 
@@ -117,6 +126,7 @@ class computing(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Android")
 
@@ -126,6 +136,7 @@ class computing(categories):
         name = Column(String, index=True)
         description = Column(String, index=True)
         price = Column(float)
+        product_image = Column(String, index=True)
 
         owner = relationship("Item", back_populates="Phones")
 
@@ -135,6 +146,7 @@ class computing(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Apple")
 
@@ -144,6 +156,7 @@ class computing(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Android")
 
@@ -153,6 +166,7 @@ class computing(categories):
         name = Column(String, index=True)
         description = Column(String, index=True)
         price = Column(float)
+        product_image = Column(String, index=True)
 
         owner = relationship("Item", back_populates="Accessories")
 
@@ -162,6 +176,7 @@ class computing(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Apple")
 
@@ -171,6 +186,7 @@ class computing(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Android")
 
@@ -180,6 +196,7 @@ class computing(categories):
         name = Column(String, index=True)
         description = Column(String, index=True)
         price = Column(float)
+        product_image = Column(String, index=True)
 
         owner = relationship("Item", back_populates="Software")
 
@@ -189,6 +206,7 @@ class computing(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Apple")
 
@@ -198,6 +216,7 @@ class computing(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Android")
 
@@ -208,6 +227,7 @@ class electronics(categories):
     name = Column(String, index=True)
     description = Column(String, index=True)
     price = Column(float)
+    product_image = Column(String, index=True)
 
     owner = relationship("Item", back_populates="electronics")
 
@@ -217,6 +237,7 @@ class electronics(categories):
         name = Column(String, index=True)
         description = Column(String, index=True)
         price = Column(float)
+        product_image = Column(String, index=True)
         owner = relationship("Item", back_populates="Cameras")
 
         class Digital(Cameras):
@@ -225,6 +246,7 @@ class electronics(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
             owner = relationship("Item", back_populates="Digital")
 
         class Film(Cameras):
@@ -233,6 +255,7 @@ class electronics(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Film")
 
@@ -242,6 +265,7 @@ class electronics(categories):
         name = Column(String, index=True)
         description = Column(String, index=True)
         price = Column(float)
+        product_image = Column(String, index=True)
 
         owner = relationship("Item", back_populates="Audio")
 
@@ -251,6 +275,7 @@ class electronics(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Headphones")
 
@@ -260,6 +285,7 @@ class electronics(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Speakers")
 
@@ -269,6 +295,7 @@ class electronics(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Microphones")
 
@@ -278,6 +305,7 @@ class electronics(categories):
         name = Column(String, index=True)
         description = Column(String, index=True)
         price = Column(float)
+        product_image = Column(String, index=True)
 
         owner = relationship("Item", back_populates="Video")
 
@@ -287,6 +315,7 @@ class electronics(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Televisions")
 
@@ -296,6 +325,7 @@ class electronics(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Projectors")
 
@@ -305,6 +335,7 @@ class electronics(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Monitors")
 
@@ -314,6 +345,7 @@ class electronics(categories):
         name = Column(String, index=True)
         description = Column(String, index=True)
         price = Column(float)
+        product_image = Column(String, index=True)
 
         owner = relationship("Item", back_populates="Accessories")
 
@@ -323,6 +355,7 @@ class electronics(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Apple")
 
@@ -332,6 +365,7 @@ class electronics(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Android")
 
@@ -343,6 +377,7 @@ class electronics(categories):
         name = Column(String, index=True)
         description = Column(String, index=True)
         price = Column(float)
+        product_image = Column(String, index=True)
 
         owner = relationship("Item", back_populates="gaming")
 
@@ -352,6 +387,7 @@ class electronics(categories):
             name = Column(String, index=True)
             description = Column(String, index=True)
             price = Column(float)
+            product_image = Column(String, index=True)
 
             owner = relationship("Item", back_populates="Consoles")
 
@@ -361,6 +397,7 @@ class electronics(categories):
                 name = Column(String, index=True)
                 description = Column(String, index=True)
                 price = Column(float)
+                product_image = Column(String, index=True)
 
                 owner = relationship("Item", back_populates="Nintendo")
 
@@ -370,6 +407,7 @@ class electronics(categories):
                 name = Column(String, index=True)
                 description = Column(String, index=True)
                 price = Column(float)
+                product_image = Column(String, index=True)
 
                 owner = relationship("Item", back_populates="Sony")
 
@@ -379,6 +417,7 @@ class electronics(categories):
                 name = Column(String, index=True)
                 description = Column(String, index=True)
                 price = Column(float)
+                product_image = Column(String, index=True)
 
                 owner = relationship("Item", back_populates="Microsoft")
 
@@ -388,4 +427,5 @@ class electronics(categories):
         name = Column(String, index=True)
         description = Column(String, index=True)
         price = Column(float)
+        product_image = Column(String, index=True)
         owner = relationship("Item", back_populates="mobile")
