@@ -13,6 +13,6 @@ def get_db():
     finally:
         db.close()
 
-@app.get("/")
+@app.get("/Items")
 def read_root():
     return {"Hello": "World"}
