@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.10
 
 # Install poetry
 RUN pip install "poetry==1.1.13" && poetry config virtualenvs.create false
