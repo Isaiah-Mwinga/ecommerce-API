@@ -17,7 +17,7 @@ class Item(Base):
     title = Column(String, index=True)
     description = Column(String, index=True)
     owner_id = Column(Integer, ForeignKey("users.id"))
-    price = Column(float)
+    price = Column(Integer , index=True)
 
     owner = relationship("User", back_populates="items")    
 
@@ -35,7 +35,7 @@ class computing(categories):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     description = Column(String, index=True)
-    price = Column(float)
+    price = Column(Integer, index=True)
     product_image = Column(String, index=True)
 
     owner = relationship("Item", back_populates="computing")
