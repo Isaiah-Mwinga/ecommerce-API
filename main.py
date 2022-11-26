@@ -35,6 +35,7 @@ def get_db():
     finally:
         db.close()
 
-@app.get("/Items")
-def read_root(token: str = Depends(oauth2_scheme)):
-    return {"Hello": "World"}
+@app.get("/Items", response_model=List[Item])
+def read_Item(token: str = Depends(oauth2_scheme)):
+    return {Item.name: Item.description
+            for Item in db.session.query(Item).all()}
