@@ -8,11 +8,18 @@ from fastapi_sqlalchemy import DBSessionMiddleware, db
 from app.models import User, Item
 from app.database import Sessionlocal, engine
 
+from app import settings
+
 import os
 from dotenv import load_dotenv
 load_dotenv('.env.local')
 
-app = FastAPI()
+app = FastAPI(
+   title=settings.project_name,
+   version=settings.version,
+   openapi_url=f"{settings.api_v1_prefix}/openapi.json",
+   debug=settings.debug
+)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
