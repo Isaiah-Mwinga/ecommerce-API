@@ -35,7 +35,15 @@ def get_db():
     finally:
         db.close()
 
+@app.post("/Item/", response_model=Item)
+def create_item(item: Item, db: Session = Depends(get_db)):
+    db_item = Item(**item.dict())
+    db.add(db_item)
+    db.commit()
+    db.refresh(db_item)
+    return db_item        
+
 @app.get("/Items", response_model=List[Item])
 def read_Item(token: str = Depends(oauth2_scheme)):
     return {Item.name: Item.description
-            for Item in db.session.query(Item).all()}
+            }
