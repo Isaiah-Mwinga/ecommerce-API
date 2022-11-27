@@ -8,23 +8,15 @@ from fastapi_sqlalchemy import DBSessionMiddleware, db
 from app.models import User, Item
 from app.database import Sessionlocal, engine
 
-from app import settings
+from app.schemas import User, Item
 
-import os
-from dotenv import load_dotenv
-load_dotenv('.env.local')
 
-app = FastAPI(
-   title=settings.project_name,
-   version=settings.version,
-   openapi_url=f"{settings.api_v1_prefix}/openapi.json",
-   debug=settings.debug
-)
 
+app = FastAPI()
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
  #to avoid csrftokenError
-app.add_middleware(DBSessionMiddleware, db_url=os.environ['DATABASE_URL'])
+
 
 
 # Dependency
@@ -43,7 +35,7 @@ def create_item(item: Item, db: Session = Depends(get_db)):
     db.refresh(db_item)
     return db_item        
 
-@app.get("/Items", response_model=List[Item])
+@app.get("/Items", response_model=Item)
 def read_Item(token: str = Depends(oauth2_scheme)):
     return {Item.name: Item.description
             }
