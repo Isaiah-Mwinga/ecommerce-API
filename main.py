@@ -6,9 +6,11 @@ from app.schemas import User, Item
 from fastapi_sqlalchemy import DBSessionMiddleware, db
 
 from app.models import User, Item
-from app.database import Sessionlocal, engine
+from app.database import Sessionlocal, engine, Base
 
 from app.schemas import User, Item
+
+Base.metadata.create_all(engine)
 
 
 
