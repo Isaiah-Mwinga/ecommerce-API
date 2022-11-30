@@ -31,6 +31,11 @@ def get_db():
 
 @app.post("/Item/", response_model=Item)
 def create_item(item: Item, db: Session = Depends(get_db)):
+    new_item = Item(
+        title=item.title, 
+        description=item.description, 
+        price=item.price, 
+        tax=item.tax)
     db_item = Item(**item.dict())
     db.add(db_item)
     db.commit()
