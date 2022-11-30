@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from app.schemas import User, Item
 from fastapi_sqlalchemy import DBSessionMiddleware, db
+from fastapi_jwt_auth import AuthJWT
 
 from app.models import User, Item
 from app.database import Sessionlocal, engine, Base
