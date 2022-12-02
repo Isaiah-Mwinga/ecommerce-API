@@ -1,0 +1,14 @@
+version: 3.10
+
+services:
+  
+  db:
+    container_name: postgres_db
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: postgres
+      POSTGRES_DB: testdb
