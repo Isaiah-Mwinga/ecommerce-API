@@ -18,6 +18,4 @@ RUN chmod +x start.sh
 COPY . /app
 EXPOSE 80
 
-ENV NEW_RELIC_CONFIG_FILE=app/newrelic.ini
-
 CMD ["./start.sh"]
