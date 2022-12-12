@@ -11,6 +11,9 @@ class User(Base):
 
     items = relationship("Item", back_populates="owner")
 
+    def __repr__(self):
+        return f"User(id={self.id}, username={self.username})"
+
 class Item(Base):
     __tablename__ = "items"
     id = Column(Integer, primary_key=True, index=True)
@@ -21,6 +24,9 @@ class Item(Base):
 
     owner = relationship("User", back_populates="items")    
 
+    def __repr__(self):
+        return f"Item(id={self.id}, title={self.title}, description={self.description}, price={self.price})"
+
 class categories(Base):
     __tablename__ = "categories"
     id = Column(Integer, primary_key=True, index=True)
@@ -29,4 +35,7 @@ class categories(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("Item", back_populates="categories")
+
+    def __repr__(self):
+        return f"Category(id={self.id}, name={self.name}, description={self.description})"
 
