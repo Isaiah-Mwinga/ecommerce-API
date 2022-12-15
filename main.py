@@ -6,6 +6,8 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from app.schemas import User, Item
 from fastapi_sqlalchemy import DBSessionMiddleware, db
 from fastapi_jwt_auth import AuthJWT
+from fastapi_jwt_auth.exceptions import AuthJWTException
+
 
 from app.models import User, Item
 from app.database import Sessionlocal, engine, Base
@@ -60,7 +62,3 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
         data={"sub": user.username})
     return {"access_token": access_token, "token_type": "bearer"}
 
-
-@app.get("/users/me")
-def read_users_me(current_user: User = Depends(get_current_active_user)):
-    return current_user        
