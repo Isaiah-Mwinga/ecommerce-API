@@ -15,10 +15,16 @@ from app.database import Sessionlocal, engine, Base
 from app.schemas import User, Item
 
 Base.metadata.create_all(engine)
+from fastapi import APIRouter
+
+router = APIRouter()
+
 
 
 
 app = FastAPI()
+app.include_router(router)
+
 
 # NEW
 app.add_middleware(
@@ -43,7 +49,7 @@ def get_db():
     finally:
         db.close()
 
-@app.post("/Item/", response_model=Item)
+@router.post("/Item/", response_model=Item)
 def create_item(item: Item, db: Session = Depends(get_db)):
     new_item = Item(
         title=item.title, 
@@ -56,13 +62,58 @@ def create_item(item: Item, db: Session = Depends(get_db)):
     db.refresh(db_item)
     return db_item        
 
-@app.get("/Items", response_model=Item)
+@router.get("/Items", response_model=Item)
 def read_Item(token: str = Depends(oauth2_scheme)):
     return {Item.name: Item.description
             }
 
+@router.get("/Item/{item_id}", response_model=Item)
+def read_Item(item_id: int, db: Session = Depends(get_db)):
+    db_item = db.query(Item).filter(Item.id == item_id).first()
+    if db_item is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return db_item
 
-@app.post("/token")
+@router.put(path="/Item/{item_id}", response_model=Item)
+def update_Item(item_id: int, item: Item, db: Session = Depends(get_db)):
+    db_item = db.query(Item).filter(Item.id == item_id).first()
+    if db_item is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+    db_item.title = item.title
+    db_item.description = item.description
+    db_item.price = item.price
+    db_item.tax = item.tax
+    db.commit()
+    db.refresh(db_item)
+    return db_item
+
+@router.delete(path="/Item/{item_id}", response_model=Item)
+def delete_Item(item_id: int, db: Session = Depends(get_db)):
+    db_item = db.query(Item).filter(Item.id == item_id).first()
+    if db_item is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+    db.delete(db_item)
+    db.commit()
+    return db_item
+
+@router.post("/user/", response_model=User)
+def create_user(user: User, db: Session = Depends(get_db)):
+    new_user = User(
+        username=user.username, 
+        email=user.email, 
+        password=user.password)
+    db_user = User(**user.dict())
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+@router.get("/users", response_model=User)
+def read_users(token: str = Depends(oauth2_scheme)):
+    return {User.name: User.description
+            }
+
+@router.post("/token")
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(oauth2_scheme)):
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
