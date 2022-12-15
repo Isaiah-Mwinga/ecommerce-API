@@ -48,3 +48,19 @@ def create_item(item: Item, db: Session = Depends(get_db)):
 def read_Item(token: str = Depends(oauth2_scheme)):
     return {Item.name: Item.description
             }
+
+
+@app.post("/token")
+def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    user = authenticate_user(form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=400, detail="Incorrect username or password")
+    access_token = create_access_token(
+        data={"sub": user.username})
+    return {"access_token": access_token, "token_type": "bearer"}
+
+
+@app.get("/users/me")
+def read_users_me(current_user: User = Depends(get_current_active_user)):
+    return current_user        
