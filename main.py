@@ -2,7 +2,6 @@ import os
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from app.schemas import User, Item
 from fastapi_sqlalchemy import DBSessionMiddleware, db
 from fastapi_jwt_auth import AuthJWT
@@ -64,7 +63,7 @@ def read_Item(token: str = Depends(oauth2_scheme)):
 
 
 @app.post("/token")
-def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(oauth2_scheme)):
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(
