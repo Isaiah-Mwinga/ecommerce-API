@@ -7,6 +7,7 @@ from app.schemas import User, Item
 from fastapi_sqlalchemy import DBSessionMiddleware, db
 from fastapi_jwt_auth import AuthJWT
 from fastapi_jwt_auth.exceptions import AuthJWTException
+from fastapi.middleware.cors import CORSMiddleware
 
 
 from app.models import User, Item
@@ -19,6 +20,16 @@ Base.metadata.create_all(engine)
 
 
 app = FastAPI()
+
+# NEW
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8080"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
  #to avoid csrftokenError
