@@ -1,19 +1,30 @@
-import os
 from datetime import datetime, timedelta
 
-from fastapi import Depends, FastAPI, HTTPException, Request, status
-from fastapi.openapi.models import OAuthFlows as OAuthFlowsModel
-from fastapi.security import OAuth2
-from fastapi.security.utils import get_authorization_scheme_param
+from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
+from passlib.context import CryptContext
+from pydantic import BaseModel
 
-from app.schemas import User, Item
-from app.models import User, Item
-from app.database import Sessionlocal, engine, Base
 
-from fastapi_sqlalchemy import DBSessionMiddleware, db
-
+# to get a string like this run:
+# openssl rand -hex 32
 SECRET_KEY = os.environ.get("SECRET_KEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    username: Optional[str] = None
+
+class User(BaseModel):
+    username: str
+    email: Optional[str] = None
+    full_name: Optional[str] = None
+    disabled: Optional[bool] = None
+
+class UserInDB(User):
+    hashed_password: str
