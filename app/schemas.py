@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 
 class User(BaseModel):
+    id: int
     username: str
     password: str
     email: str
@@ -10,6 +11,7 @@ class User(BaseModel):
         orm_mode = True
 
 class  Item(BaseModel):
+    id: int
     title: str
     description: str = None
     price: float
