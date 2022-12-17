@@ -40,27 +40,21 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
  #to avoid csrftokenError
 
 
-
-# Dependency
-def get_db():
-    db = Sessionlocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
+db = Sessionlocal()
+  
 @app.post("/Item/", response_model=Item)
-def create_item(item: Item, db: Session = Depends(get_db)):
+def create_item(item: Item):
     new_item = Item(
         title=item.title, 
         description=item.description, 
         price=item.price, 
         tax=item.tax)
-    db_item = Item(**item.dict())
-    db.add(db_item)
+    new_item = Item(**item.dict())
+    db.add(new_item)
     db.commit()
-    db.refresh(db_item)
-    return db_item        
+    db.refresh(new_item)
+    
+    return new_item        
 
 @app.get("/Items", response_model=Item)
 def read_Item(token: str = Depends(oauth2_scheme)):
@@ -68,14 +62,14 @@ def read_Item(token: str = Depends(oauth2_scheme)):
             }
 
 @app.get("/Item/{item_id}", response_model=Item)
-def read_Item(item_id: int, db: Session = Depends(get_db)):
+def read_Item(item_id: int):
     db_item = db.query(Item).filter(Item.id == item_id).first()
     if db_item is None:
         raise HTTPException(status_code=404, detail="Item not found")
     return db_item
 
 @app.put(path="/Item/{item_id}", response_model=Item)
-def update_Item(item_id: int, item: Item, db: Session = Depends(get_db)):
+def update_Item(item_id: int, item: Item):
     db_item = db.query(Item).filter(Item.id == item_id).first()
     if db_item is None:
         raise HTTPException(status_code=404, detail="Item not found")
@@ -88,7 +82,7 @@ def update_Item(item_id: int, item: Item, db: Session = Depends(get_db)):
     return db_item
 
 @app.delete(path="/Item/{item_id}", response_model=Item)
-def delete_Item(item_id: int, db: Session = Depends(get_db)):
+def delete_Item(item_id: int):
     db_item = db.query(Item).filter(Item.id == item_id).first()
     if db_item is None:
         raise HTTPException(status_code=404, detail="Item not found")
@@ -97,7 +91,7 @@ def delete_Item(item_id: int, db: Session = Depends(get_db)):
     return db_item
 
 @app.post("/user/", response_model=User)
-def create_user(user: User, db: Session = Depends(get_db)):
+def create_user(user: User):
     new_user = User(
         username=user.username, 
         email=user.email, 
