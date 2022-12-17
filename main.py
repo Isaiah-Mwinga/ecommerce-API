@@ -39,12 +39,18 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
  #to avoid csrftokenError
 
+# Dependency
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
-db = Sessionlocal()
-  
+
 @app.post("/Item/", response_model=Item)
-def create_item(item: Item):
-    new_item = Item(
+def create_item(item: Item , db: Session = Depends(get_db)):
+    new_item = models.Item(
         title=item.title, 
         description=item.description, 
         price=item.price, 
@@ -53,24 +59,24 @@ def create_item(item: Item):
     db.add(new_item)
     db.commit()
     db.refresh(new_item)
-    
+
     return new_item        
 
 @app.get("/Items", response_model=Item)
-def read_Item(token: str = Depends(oauth2_scheme)):
+def read_Item(token: str = Depends(oauth2_scheme) , db: Session = Depends(get_db)):
     return {Item.name: Item.description
             }
 
 @app.get("/Item/{item_id}", response_model=Item)
-def read_Item(item_id: int):
-    db_item = db.query(Item).filter(Item.id == item_id).first()
+def read_Item(item_id: int , db: Session = Depends(get_db)):
+    db_item = db.query(models.Item).filter(Item.id == item_id).first()
     if db_item is None:
         raise HTTPException(status_code=404, detail="Item not found")
     return db_item
 
 @app.put(path="/Item/{item_id}", response_model=Item)
-def update_Item(item_id: int, item: Item):
-    db_item = db.query(Item).filter(Item.id == item_id).first()
+def update_Item(item_id: int, item: Item , db: Session = Depends(get_db)):
+    db_item = db.query(models.Item).filter(Item.id == item_id).first()
     if db_item is None:
         raise HTTPException(status_code=404, detail="Item not found")
     db_item.title = item.title
@@ -82,8 +88,8 @@ def update_Item(item_id: int, item: Item):
     return db_item
 
 @app.delete(path="/Item/{item_id}", response_model=Item)
-def delete_Item(item_id: int):
-    db_item = db.query(Item).filter(Item.id == item_id).first()
+def delete_Item(item_id: int , db: Session = Depends(get_db)):
+    db_item = db.query(models.Item).filter(Item.id == item_id).first()
     if db_item is None:
         raise HTTPException(status_code=404, detail="Item not found")
     db.delete(db_item)
@@ -91,8 +97,8 @@ def delete_Item(item_id: int):
     return db_item
 
 @app.post("/user/", response_model=User)
-def create_user(user: User):
-    new_user = User(
+def create_user(user: User , db: Session = Depends(get_db)):
+    new_user = models.User(
         username=user.username, 
         email=user.email, 
         password=user.password)
@@ -103,12 +109,13 @@ def create_user(user: User):
     return db_user
 
 @app.get("/users", response_model=User)
-def read_users(token: str = Depends(oauth2_scheme)):
+def read_users(token: str = Depends(oauth2_scheme) , db: Session = Depends(get_db)):
     return {User.name: User.description
             }
 
 @app.post("/token")
-def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(oauth2_scheme)):
+def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(oauth2_scheme) ,
+                            db: Session = Depends(get_db)):
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(
