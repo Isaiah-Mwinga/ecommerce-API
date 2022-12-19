@@ -20,3 +20,10 @@ class  Item(BaseModel):
     class Config:
         orm_mode = True
 
+class categories(BaseModel):
+    id: int
+    name: str
+    description: str = None
+
+    class Config:
+        orm_mode = True
