@@ -1,5 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from app.schemas import User
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 router = APIRouter(
     prefix="/users",
@@ -7,6 +9,8 @@ router = APIRouter(
     # dependencies=[Depends(get_token_header)],
     responses={404: {"description": "Not found"}},
 )
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 # Dependency
 def get_db():

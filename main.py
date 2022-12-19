@@ -16,14 +16,15 @@ from app.schemas import User, Item
 
 Base.metadata.create_all(engine)
 from fastapi import APIRouter
-
-router = APIRouter(
-    prefix="/api",
-)
-
+from app.router.api_v1 import Users, Items
 
 app = FastAPI()
-app.include_router(router)
+app.include_router(Users.router)
+app.include_router(Items.router)
+
+
+app.add_middleware(DBSessionMiddleware, db_url=os.environ.get("DATABASE_URL"))
+
 
 
 # NEW
