@@ -3,8 +3,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 
-engine = create_engine("postgresql+psycopg2://postgres:root@localhost/testdb",
-                          echo=True)
+DATABASE_URL= "postgresql://postgres:root@localhost/testdb"
+engine = create_engine(DATABASE_URL)
+                         
     
 
 Sessionlocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

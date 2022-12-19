@@ -23,7 +23,7 @@ app.include_router(Users.router)
 app.include_router(Items.router)
 
 
-app.add_middleware(DBSessionMiddleware, db_url=os.environ.get("DATABASE_URL"))
+
 
 
 
@@ -39,6 +39,13 @@ app.add_middleware(
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
  #to avoid csrftokenError
+ #dependency
+def get_db():
+    db = Sessionlocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 
 @app.post("/token")
