@@ -2,15 +2,10 @@ import os
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from fastapi_sqlalchemy import DBSessionMiddleware, db
 from fastapi.middleware.cors import CORSMiddleware
 
 
 from app.database import Sessionlocal, engine, Base
-from dotenv import load_dotenv
-load_dotenv('.env.local')
-
-
 
 
 Base.metadata.create_all(engine)
@@ -22,9 +17,6 @@ app = FastAPI()
 app.include_router(Users.router)
 app.include_router(Items.router)
 
-
-
-app.add_middleware(DBSessionMiddleware, db_url=os.environ['DATABASE_URL'])
 
 
 # NEW
