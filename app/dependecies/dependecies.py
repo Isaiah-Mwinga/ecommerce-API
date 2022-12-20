@@ -1,6 +1,9 @@
+from sqlalchemy.orm import Session
+from app.database import Sessionlocal
+
 # Dependency
 def get_db():
-    db = SessionLocal()
+    db = Sessionlocal()
     try:
         yield db
     finally:
