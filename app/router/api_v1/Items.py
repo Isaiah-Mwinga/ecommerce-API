@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import Sessionlocal
+from app import models
 from app.schemas import Item
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 

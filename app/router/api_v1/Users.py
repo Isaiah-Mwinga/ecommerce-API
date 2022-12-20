@@ -30,8 +30,8 @@ def create_user(user: User , db: Session = Depends(get_db)):
         password=user.password, 
         is_active=user.is_active)
     new_user = User(**user.dict())
-    db.add(new_user)
-    db.commit()
+    db.Session.add(new_user)
+    db.Session.commit()
     db.refresh(new_user)
 
     return new_user
