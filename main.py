@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 
 
-from app.database import Sessionlocal, engine, Base
+from app.database import SessionLocal, engine, Base
 
 
 Base.metadata.create_all(engine)
@@ -33,7 +33,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
  #to avoid csrftokenError
  #dependency
 def get_db():
-    db = Sessionlocal()
+    db = SessionLocal()
     try:
         yield db
     finally:

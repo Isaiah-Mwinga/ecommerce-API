@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.database import Sessionlocal
+from app.database import SessionLocal
 from app.schemas import User
 from app import models
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -16,7 +16,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 # Dependency
 def get_db():
-    db = Sessionlocal()
+    db = SessionLocal()
     try:
         yield db
     finally:
@@ -30,8 +30,8 @@ def create_user(user: User , db: Session = Depends(get_db)):
         password=user.password, 
         is_active=user.is_active)
     new_user = User(**user.dict())
-    db.Session.add(new_user)
-    db.Session.commit()
+    db.add(new_user)
+    db.commit()
     db.refresh(new_user)
 
     return new_user

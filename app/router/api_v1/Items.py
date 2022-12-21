@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.database import Sessionlocal
+from app.database import SessionLocal
 from app import models
 from app.schemas import Item
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
@@ -18,7 +18,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 # Dependency
 def get_db():
-    db = Sessionlocal()
+    db = SessionLocal()
     try:
         yield db
     finally:
