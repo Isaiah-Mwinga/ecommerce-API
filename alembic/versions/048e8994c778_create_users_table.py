@@ -17,8 +17,16 @@ depends_on = None
 
 
 def upgrade() -> None:
-    pass
+    op.create_table(
+        "users",
+        sa.Column("id", sa.Integer, primary_key=True, index=True),
+        sa.Column("username", sa.String, unique=True, index=True, nullable=False),
+        sa.Column("email", sa.String, unique=True, index=True, nullable=False),
+        sa.Column("password", sa.String, index=True, unique=True, nullable=False),
+        sa.Column("is_active", sa.Boolean, default=True, nullable=False),
+    )
+
 
 
 def downgrade() -> None:
-    pass
+    op.drop_table("users")
