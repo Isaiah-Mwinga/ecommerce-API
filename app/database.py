@@ -4,7 +4,8 @@ from sqlalchemy.orm import sessionmaker
 
 
 DATABASE_URL= "postgresql+psycopg2://postgres:root@localhost/Item_db"
-engine = create_engine(DATABASE_URL)
+engine = create_engine(DATABASE_URL, 
+                        echo=True)
                          
     
 
