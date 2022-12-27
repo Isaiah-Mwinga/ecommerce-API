@@ -10,7 +10,7 @@ class User(Base):
     password = Column(String, index=True, unique=True, nullable=False)
     is_active = Column(Boolean, default=True, nullable=False)
 
-    items = relationship("Item", back_populates="owner")
+    items = relationship("Item", back_populates="users")
 
     def __repr__(self):
         return f"User(id={self.id}, username={self.username}), email={self.email}), password={self.password}, is_active={self.is_active})"
@@ -29,7 +29,7 @@ class Item(Base):
     def __repr__(self):
         return f"Item(id={self.id}, title={self.title}, description={self.description}, price={self.price})"
 
-class categories(Base):
+class Categories(Base):
     __tablename__ = "categories"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
@@ -41,14 +41,14 @@ class categories(Base):
     def __repr__(self):
         return f"Category(id={self.id}, name={self.name}, description={self.description})"
 
-class Computing(categories):
+class Computing(Categories):
     __tablename__ = "computing"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     description = Column(String, index=True)
     owner_id = Column(Integer, ForeignKey("users.id"))
 
-    owner = relationship("categories", back_populates="computing")
+    owner = relationship("Categories", back_populates="computing")
 
     def __repr__(self):
         return f"Computing(id={self.id}, name={self.name}, description={self.description})"
@@ -60,7 +60,7 @@ class Computing(categories):
             description = Column(String, index=True)
             owner_id = Column(Integer, ForeignKey("users.id"))
         
-            owner = relationship("categories", back_populates="laptops")
+            owner = relationship("Computing", back_populates="laptops")
         
             def __repr__(self):
                 return f"Laptops(id={self.id}, name={self.name}, description={self.description})"
@@ -72,7 +72,7 @@ class Computing(categories):
             description = Column(String, index=True)
             owner_id = Column(Integer, ForeignKey("users.id"))
 
-            owner = relationship("categories", back_populates="computers")
+            owner = relationship("Computing", back_populates="computers")
 
             def __repr__(self):
                 return f"Computers(id={self.id}, name={self.name}, description={self.description})"
