@@ -34,7 +34,7 @@ class Categories(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     description = Column(String, index=True)
-    owner_id = Column(Integer, ForeignKey("users.id"))
+    owner_id = Column(Integer, ForeignKey("items.id"))
 
     owner = relationship("Item", back_populates="categories")
 
@@ -46,7 +46,7 @@ class Computing(Categories):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     description = Column(String, index=True)
-    owner_id = Column(Integer, ForeignKey("users.id"))
+    owner_id = Column(Integer, ForeignKey("categories.id"))
 
     owner = relationship("Categories", back_populates="computing")
 
@@ -58,7 +58,7 @@ class Computing(Categories):
             id = Column(Integer, primary_key=True, index=True)
             name = Column(String, index=True)
             description = Column(String, index=True)
-            owner_id = Column(Integer, ForeignKey("users.id"))
+            owner_id = Column(Integer, ForeignKey("computing.id"))
         
             owner = relationship("Computing", back_populates="laptops")
         
@@ -70,7 +70,7 @@ class Computing(Categories):
             id = Column(Integer, primary_key=True, index=True)
             name = Column(String, index=True)
             description = Column(String, index=True)
-            owner_id = Column(Integer, ForeignKey("users.id"))
+            owner_id = Column(Integer, ForeignKey("computing.id"))
 
             owner = relationship("Computing", back_populates="computers")
 
