@@ -53,14 +53,26 @@ class Computing(categories):
     def __repr__(self):
         return f"Computing(id={self.id}, name={self.name}, description={self.description})"
 
-class Laptops(Computing):
-    __tablename__ = "laptops"
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    description = Column(String, index=True)
-    owner_id = Column(Integer, ForeignKey("users.id"))
+        class Laptops(Computing):
+            __tablename__ = "laptops"
+            id = Column(Integer, primary_key=True, index=True)
+            name = Column(String, index=True)
+            description = Column(String, index=True)
+            owner_id = Column(Integer, ForeignKey("users.id"))
+        
+            owner = relationship("categories", back_populates="laptops")
+        
+            def __repr__(self):
+                return f"Laptops(id={self.id}, name={self.name}, description={self.description})"
+        
+        class Computers(Computing):
+            __tablename__ = "computers"
+            id = Column(Integer, primary_key=True, index=True)
+            name = Column(String, index=True)
+            description = Column(String, index=True)
+            owner_id = Column(Integer, ForeignKey("users.id"))
 
-    owner = relationship("categories", back_populates="laptops")
+            owner = relationship("categories", back_populates="computers")
 
-    def __repr__(self):
-        return f"Laptops(id={self.id}, name={self.name}, description={self.description})"
+            def __repr__(self):
+                return f"Computers(id={self.id}, name={self.name}, description={self.description})"
