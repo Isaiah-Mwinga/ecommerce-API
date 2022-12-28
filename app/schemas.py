@@ -27,3 +27,27 @@ class categories(BaseModel):
 
     class Config:
         orm_mode = True
+
+        class Computing(categories):
+            id: int
+            name: str
+            description: str = None
+
+            class Config:
+                orm_mode = True
+
+            class Laptops(Computing):
+                id: int
+                name: str
+                description: str = None
+
+                class Config:
+                    orm_mode = True
+
+            class Computers(Computing):
+                id: int
+                name: str
+                description: str = None
+
+                class Config:
+                    orm_mode = True
