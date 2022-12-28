@@ -28,7 +28,7 @@ class categories(BaseModel):
     class Config:
         orm_mode = True
 
-        class Computing(categories):
+        class Computing(BaseModel):
             id: int
             name: str
             description: str = None
@@ -36,7 +36,7 @@ class categories(BaseModel):
             class Config:
                 orm_mode = True
 
-            class Laptops(Computing):
+            class Laptops(BaseModel):
                 id: int
                 name: str
                 description: str = None
@@ -44,7 +44,7 @@ class categories(BaseModel):
                 class Config:
                     orm_mode = True
 
-            class Computers(Computing):
+            class Computers(BaseModel):
                 id: int
                 name: str
                 description: str = None
