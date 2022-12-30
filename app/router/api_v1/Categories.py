@@ -8,3 +8,11 @@ router = APIRouter(
     tags=["Categories"],
     # dependencies=[Depends(get_token_header)],
 )
+
+# Dependency
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
