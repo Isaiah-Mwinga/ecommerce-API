@@ -28,3 +28,9 @@ def create_Category(category: categories, db: Session = Depends(get_db)):
     db.refresh(new_category)
 
     return new_category
+
+@router.get("Categories", response_model=categories)
+def read_Category(db: Session = Depends(get_db)):
+    db_category = db.query(models.Category).all()
+    return {categories.name: categories.description
+            }
