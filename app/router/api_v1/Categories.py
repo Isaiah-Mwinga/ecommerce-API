@@ -41,3 +41,14 @@ def read_Category(category_id: int, db: Session = Depends(get_db)):
     if db_category is None:
         raise HTTPException(status_code=404, detail="Category not found")
     return db_category
+
+@router.put(path="Category/{category_id}", response_model=categories)
+def update_Category(category_id: int, category: categories, db: Session = Depends(get_db)):
+    db_category = db.query(models.Category).filter(categories.id == category_id).first()
+    if db_category is None:
+        raise HTTPException(status_code=404, detail="Category not found")
+    db_category.name = category.name
+    db_category.description = category.description
+    db.commit()
+    db.refresh(db_category)
+    return db_category
