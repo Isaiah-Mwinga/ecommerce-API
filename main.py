@@ -10,11 +10,12 @@ from app.database import SessionLocal, engine, Base
 Base.metadata.create_all(engine)
 
 from fastapi import APIRouter
-from app.router.api_v1 import Users, Items
+from app.router.api_v1 import Users, Items, Categories
 
 app = FastAPI()
 app.include_router(Users.router)
 app.include_router(Items.router)
+app.include_router(Categories.router)
 
 
 
