@@ -52,3 +52,12 @@ def update_Category(category_id: int, category: categories, db: Session = Depend
     db.commit()
     db.refresh(db_category)
     return db_category
+
+@router.delete(path="Category/{category_id}", response_model=categories)
+def delete_Category(category_id: int, db: Session = Depends(get_db)):
+    db_category = db.query(models.Category).filter(categories.id == category_id).first()
+    if db_category is None:
+        raise HTTPException(status_code=404, detail="Category not found")
+    db.delete(db_category)
+    db.commit()
+    return db_category
