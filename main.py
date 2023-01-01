@@ -16,6 +16,7 @@ app = FastAPI()
 app.include_router(Users.router)
 app.include_router(Items.router)
 app.include_router(Categories.router)
+app.include_router(Computing.router)
 
 
 
