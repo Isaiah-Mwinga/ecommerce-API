@@ -35,3 +35,12 @@ def create_computing(computing: Computing, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_computing)
     return db_computing
+
+@router.put("/{computing_id}")
+def update_computing(computing_id: int, computing: Computing, db: Session = Depends(get_db)):
+    db_computing = db.query(Computing).filter(Computing.id == computing_id)
+    if not db_computing.first():
+        raise HTTPException(status_code=404, detail="Computing not found")
+    db_computing.update(computing.dict())
+    db.commit()
+    return "updated"
