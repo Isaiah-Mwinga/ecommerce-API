@@ -17,3 +17,7 @@ def get_db():
     finally:
         db.close()
 
+@router.get("/")
+def read_computing(db: Session = Depends(get_db)):
+    return db.query(Computing).all()
+    
