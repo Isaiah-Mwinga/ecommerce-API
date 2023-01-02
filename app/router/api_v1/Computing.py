@@ -27,3 +27,11 @@ def read_computing(computing_id: int, db: Session = Depends(get_db)):
     if db_computing is None:
         raise HTTPException(status_code=404, detail="Computing not found")
     return db_computing
+
+@router.post("/")
+def create_computing(computing: Computing, db: Session = Depends(get_db)):
+    db_computing = Computing(**computing.dict())
+    db.add(db_computing)
+    db.commit()
+    db.refresh(db_computing)
+    return db_computing
