@@ -44,3 +44,12 @@ def update_computing(computing_id: int, computing: Computing, db: Session = Depe
     db_computing.update(computing.dict())
     db.commit()
     return "updated"
+
+@router.delete("/{computing_id}")
+def delete_computing(computing_id: int, db: Session = Depends(get_db)):
+    db_computing = db.query(Computing).filter(Computing.id == computing_id)
+    if not db_computing.first():
+        raise HTTPException(status_code=404, detail="Computing not found")
+    db_computing.delete(synchronize_session=False)
+    db.commit()
+    return "deleted"
