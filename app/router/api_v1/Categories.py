@@ -20,7 +20,7 @@ def get_db():
 
 @router.post("Category/", response_model=categories)
 def create_Category(category: categories, db: Session = Depends(get_db)):
-    new_category = models.Category(
+    new_category = models.Categories(
         name=category.name, 
         description=category.description)
     new_category = categories(**category.dict())
