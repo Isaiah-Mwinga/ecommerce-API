@@ -41,17 +41,17 @@ class Categories(Base):
     def __repr__(self):
         return f"Category(id={self.id}, name={self.name}, description={self.description})"
 
-class Computing(Categories):
-    __tablename__ = "computing"
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    description = Column(String, index=True)
-    owner_id = Column(Integer, ForeignKey("categories.id"))
-
-    owner = relationship("Categories", back_populates="computing")
-
-    def __repr__(self):
-        return f"Computing(id={self.id}, name={self.name}, description={self.description})"
+        class Computing(Categories):
+            __tablename__ = "computing"
+            id = Column(Integer, primary_key=True, index=True)
+            name = Column(String, index=True)
+            description = Column(String, index=True)
+            owner_id = Column(Integer, ForeignKey("categories.id"))
+        
+            owner = relationship("Categories", back_populates="computing")
+        
+            def __repr__(self):
+                return f"Computing(id={self.id}, name={self.name}, description={self.description})"
 
         class Laptops(Computing):
             __tablename__ = "laptops"
