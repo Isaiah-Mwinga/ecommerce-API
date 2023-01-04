@@ -37,7 +37,7 @@ class Categories(Base):
     description = Column(String, index=True)
     owner_id = Column(Integer, ForeignKey("items.id"))
 
-    owner = relationship("Item", back_populates="categories")
+    items = relationship("Item", back_populates="categories")
 
     def __repr__(self):
         return f"Category(id={self.id}, name={self.name}, description={self.description})"
