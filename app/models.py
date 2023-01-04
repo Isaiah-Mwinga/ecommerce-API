@@ -24,7 +24,8 @@ class Item(Base):
     price = Column(Integer , index=True, nullable=False)
     tax = Column(Integer , index=True, nullable=False)
 
-    owner = relationship("User", back_populates="items")    
+    User = relationship("User", back_populates="items")  
+    categories = relationship("Categories", back_populates="items", cascade="all, delete-orphan")  
 
     def __repr__(self):
         return f"Item(id={self.id}, title={self.title}, description={self.description}, price={self.price})"
