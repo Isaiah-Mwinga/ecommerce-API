@@ -10,7 +10,7 @@ class User(Base):
     password = Column(String, index=True, unique=True, nullable=False)
     is_active = Column(Boolean, default=True, nullable=False)
 
-    items = relationship("Item", back_populates="users")
+    items = relationship("Item", back_populates="User")
 
     def __repr__(self):
         return f"User(id={self.id}, username={self.username}), email={self.email}), password={self.password}, is_active={self.is_active})"
