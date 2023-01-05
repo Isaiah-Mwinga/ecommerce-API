@@ -40,7 +40,7 @@ class Categories(Base):
     items = relationship("Item", back_populates="categories")
 
     def __repr__(self):
-        return f"Category(id={self.id}, name={self.name}, description={self.description})"
+        return f"Categories(id={self.id}, name={self.name}, description={self.description})"
 
         class Computing(Categories):
             __tablename__ = "computing"
