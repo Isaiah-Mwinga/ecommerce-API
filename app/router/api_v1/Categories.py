@@ -18,7 +18,7 @@ def get_db():
     finally:
         db.close()
 
-@router.post("Category/", response_model=categories)
+@router.post("/Categories", response_model=categories)
 def create_Category(category: categories, db: Session = Depends(get_db)):
     new_category = models.Categories(
         name=category.name, 
@@ -30,20 +30,20 @@ def create_Category(category: categories, db: Session = Depends(get_db)):
 
     return new_category
 
-@router.get("Categories", response_model=categories)
+@router.get("/Categories", response_model=categories)
 def read_Category(db: Session = Depends(get_db)):
     db_category = db.query(models.Category).all()
     return {categories.name: categories.description
             }
 
-@router.get("Category/{category_id}", response_model=categories)
+@router.get("/Categories/{category_id}", response_model=categories)
 def read_Category(category_id: int, db: Session = Depends(get_db)):
     db_category = db.query(models.Category).filter(categories.id == category_id).first()
     if db_category is None:
         raise HTTPException(status_code=404, detail="Category not found")
     return db_category
 
-@router.put(path="Category/{category_id}", response_model=categories)
+@router.put("/Categories/{category_id}", response_model=categories)
 def update_Category(category_id: int, category: categories, db: Session = Depends(get_db)):
     db_category = db.query(models.Category).filter(categories.id == category_id).first()
     if db_category is None:
@@ -54,7 +54,7 @@ def update_Category(category_id: int, category: categories, db: Session = Depend
     db.refresh(db_category)
     return db_category
 
-@router.delete(path="Category/{category_id}", response_model=categories)
+@router.delete("/Categories/{category_id}", response_model=categories)
 def delete_Category(category_id: int, db: Session = Depends(get_db)):
     db_category = db.query(models.Category).filter(categories.id == category_id).first()
     if db_category is None:
