@@ -22,27 +22,27 @@ def get_db():
     finally:
         db.close()
 
-@router.post("/users/", response_model=schemas.User)
+@router.post("/users", response_model=schemas.User)
 def create_user(user: schemas.User, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, email=user.email)
     if db_user:
         raise HTTPException(status_code=400, detail="Email already registered")
     return crud.create_user(db=db, user=user)
 
-@router.get("Users", response_model=User)
+@router.get("/Users", response_model=User)
 def read_User(token: str = Depends(oauth2_scheme) , db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(User.id == user_id).all()
     return {User.name: User.description
             }
 
-@router.get("User/{user_id}", response_model=User)
+@router.get("/User/{user_id}", response_model=User)
 def read_User(user_id: int , db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(User.id == user_id).first()
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
-@router.put(path="User/{user_id}", response_model=User)
+@router.put("/User/{user_id}", response_model=User)
 def update_User(user_id: int, user: User , db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(User.id == user_id).first()
     if db_user is None:
@@ -55,7 +55,7 @@ def update_User(user_id: int, user: User , db: Session = Depends(get_db)):
     db.refresh(db_user)
     return db_user
 
-@router.delete(path="User/{user_id}", response_model=User)
+@router.delete("/User/{user_id}", response_model=User)
 def delete_User(user_id: int , db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(User.id == user_id).first()
     if db_user is None:
