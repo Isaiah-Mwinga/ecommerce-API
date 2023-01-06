@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import SessionLocal
 from app.schemas import User
-from app import models
+from app import models, schemas
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 router = APIRouter(
@@ -22,7 +22,7 @@ def get_db():
     finally:
         db.close()
 
-@router.post("User/", response_model=User)
+@router.post("User/", response_model=schemas.User)
 def create_user(user: User , db: Session = Depends(get_db)):
     new_user = models.User(
         username=user.username, 
@@ -71,8 +71,3 @@ def delete_User(user_id: int , db: Session = Depends(get_db)):
     db.commit()
     return db_user
 
-# Path: app/router/api_v1/Orders.py
-# Compare this snippet from app/router/api_v1/Items.py:
-# from fastapi import APIRouter, Depends, HTTPException
-# from sqlalchemy.orm import Session
-#
