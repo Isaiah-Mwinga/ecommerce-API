@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import SessionLocal
 from app.schemas import User
-from app import models, schemas
+from app import models, schemas, crud
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 router = APIRouter(
@@ -22,19 +22,12 @@ def get_db():
     finally:
         db.close()
 
-@router.post("User/", response_model=schemas.User)
-def create_user(user: User , db: Session = Depends(get_db)):
-    new_user = models.User(
-        username=user.username, 
-        email=user.email, 
-        password=user.password, 
-        is_active=user.is_active)
-    new_user = User(**user.dict())
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
-
-    return new_user
+@router.post("/users/", response_model=schemas.User)
+def create_user(user: schemas.User, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, email=user.email)
+    if db_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    return crud.create_user(db=db, user=user)
 
 @router.get("Users", response_model=User)
 def read_User(token: str = Depends(oauth2_scheme) , db: Session = Depends(get_db)):
