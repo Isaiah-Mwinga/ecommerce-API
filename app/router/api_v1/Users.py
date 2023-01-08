@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 from app.database import SessionLocal
 from app.schemas import User
 from app import models, schemas, crud
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 router = APIRouter(
     prefix="/users",
@@ -12,7 +11,6 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 # Dependency
 def get_db():
@@ -30,7 +28,7 @@ def create_user(user: schemas.User, db: Session = Depends(get_db)):
     return crud.create_user(db=db, user=user)
 
 @router.get("/Users", response_model=User)
-def read_User(token: str = Depends(oauth2_scheme) , db: Session = Depends(get_db)):
+def read_User( db: Session = Depends(get_db)):
     db_user = db.query(models.User).filter(User.id == user_id).all()
     return {User.name: User.description
             }

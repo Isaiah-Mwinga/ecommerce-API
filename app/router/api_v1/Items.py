@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 from app.database import SessionLocal
 from app import models
 from app.schemas import Item
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 
 
@@ -14,7 +13,6 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 # Dependency
 def get_db():
@@ -39,7 +37,7 @@ def create_item(item: Item , db: Session = Depends(get_db)):
     return new_item
 
 @router.get("Items", response_model=Item)
-def read_Item(token: str = Depends(oauth2_scheme) , db: Session = Depends(get_db)):
+def read_Item( db: Session = Depends(get_db)):
     db_item = db.query(models.Item).filter(Item.id == item_id).all()
     return {Item.name: Item.description
             }
