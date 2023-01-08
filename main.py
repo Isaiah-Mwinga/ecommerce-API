@@ -31,26 +31,3 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
- #to avoid csrftokenError
- #dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
-@app.post("/token")
-def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(oauth2_scheme) ,
-                            db: Session = Depends(get_db)):
-    user = authenticate_user(form_data.username, form_data.password)
-    if not user:
-        raise HTTPException(
-            status_code=400, detail="Incorrect username or password")
-    access_token = create_access_token(
-        data={"sub": user.username})
-    return {"access_token": access_token, "token_type": "bearer"}
-
