@@ -15,29 +15,14 @@ class User(Base):
     def __repr__(self):
         return f"User(id={self.id}, username={self.username}), email={self.email}), password={self.password}, is_active={self.is_active})"
 
-class Item(Base):
-    __tablename__ = "items"
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String, index=True, nullable=False)
-    description = Column(String, index=True, nullable=False)
-    owner_id = Column(Integer, ForeignKey("users.id"))
-    price = Column(Integer , index=True, nullable=False)
-    tax = Column(Integer , index=True, nullable=False)
-
-    User = relationship("User", back_populates="items")  
-    categories = relationship("Categories", back_populates="items", cascade="all, delete-orphan")  
-
-    def __repr__(self):
-        return f"Item(id={self.id}, title={self.title}, description={self.description}, price={self.price})"
-
 class Categories(Base):
     __tablename__ = "categories"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     description = Column(String, index=True)
-    owner_id = Column(Integer, ForeignKey("items.id"))
+    owner_id = Column(Integer, ForeignKey("user.id"))
 
-    items = relationship("Item", back_populates="categories")
+    items = relationship("User", back_populates="categories")
 
     def __repr__(self):
         return f"Categories(id={self.id}, name={self.name}, description={self.description})"
