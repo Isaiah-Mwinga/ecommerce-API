@@ -2,11 +2,8 @@ from sqlalchemy.orm import Session
 from app.database import SessionLocal
 
 
-from fastapi import Depends, FastAPI, HTTPException, status, APIRouter
-
 from app.schemas import User
 
-from typing import Optional
 
 from . import models, schemas
 
@@ -31,13 +28,13 @@ def create_user(db: Session, user: schemas.User):
     return db_user
 
 
-#def get_items(db: Session, skip: int = 0, limit: int = 100):
-#    return db.query(models.Item).offset(skip).limit(limit).all()
+def get_categories(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Categories).offset(skip).limit(limit).all()
 
 
-#def create_user_item(db: Session, item: schemas.Item, user_id: int):
-#    db_item = models.Item(**item.dict(), owner_id=user_id)
-#    db.add(db_item)
-#    db.commit()
-#    db.refresh(db_item)
-#    return db_item
+def create_category(db: Session, categories: schemas.categories):
+    db_category = models.Categories(name=categories.name, description=categories.description)
+    db.add(db_category)
+    db.commit()
+    db.refresh(db_category)
+    return db_category
