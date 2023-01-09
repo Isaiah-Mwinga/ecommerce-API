@@ -62,3 +62,4 @@ class Categories(Base):
 
             def __repr__(self):
                 return f"Computers(id={self.id}, name={self.name}, description={self.description})"
+
