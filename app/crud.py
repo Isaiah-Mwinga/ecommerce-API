@@ -29,11 +29,11 @@ def create_user(db: Session, user: schemas.User):
 
 
 def get_categories(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Categories).offset(skip).limit(limit).all()
+    return db.query(models.categories).offset(skip).limit(limit).all()
 
 
 def create_category(db: Session, categories: schemas.categories):
-    db_category = models.Categories(name=categories.name, description=categories.description)
+    db_category = models.categories(name=categories.name, description=categories.description)
     db.add(db_category)
     db.commit()
     db.refresh(db_category)
