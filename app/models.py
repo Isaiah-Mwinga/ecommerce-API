@@ -38,28 +38,3 @@ class categories(Base):
         
             def __repr__(self):
                 return f"Computing(id={self.id}, name={self.name}, description={self.description})"
-
-        class Laptops(Computing):
-            __tablename__ = "laptops"
-            id = Column(Integer, primary_key=True, index=True)
-            name = Column(String, index=True)
-            description = Column(String, index=True)
-            owner_id = Column(Integer, ForeignKey("computing.id"))
-        
-            owner = relationship("Computing", back_populates="laptops")
-        
-            def __repr__(self):
-                return f"Laptops(id={self.id}, name={self.name}, description={self.description})"
-        
-        class Computers(Computing):
-            __tablename__ = "computers"
-            id = Column(Integer, primary_key=True, index=True)
-            name = Column(String, index=True)
-            description = Column(String, index=True)
-            owner_id = Column(Integer, ForeignKey("computing.id"))
-
-            owner = relationship("Computing", back_populates="computers")
-
-            def __repr__(self):
-                return f"Computers(id={self.id}, name={self.name}, description={self.description})"
-
