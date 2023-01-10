@@ -27,19 +27,4 @@ class Computing(BaseModel):
             class Config:
                 orm_mode = True
 
-class Laptops(BaseModel):
-                id: int
-                name: str
-                description: str = None
-
-                class Config:
-                    orm_mode = True
-
-class Computers(BaseModel):
-                id: int
-                name: str
-                description: str = None
-
-                class Config:
-                    orm_mode = True
 
