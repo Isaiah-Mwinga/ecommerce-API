@@ -5,18 +5,18 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import Session, engine, Base
 from app import Users,auth
-from app.Users import router
-from app.auth import router
+from app.Users import user
+from app.auth import auth
 
 
 Base.metadata.create_all(engine)
 
 
 app = FastAPI()
-app.include_router(router.router)
+app.include_router(user.router)
 #app.include_router(Categories.router)
 #app.include_router(Computing.router)
-#app.include_router(auth.router)
+app.include_router(auth.router)
 
 
 
