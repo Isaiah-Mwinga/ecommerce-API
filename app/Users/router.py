@@ -5,7 +5,7 @@ from app.database import get_db
 from . import crud
 from app.auth.services import get_current_user
 
-router = APIRouter(tags=['User'], prefix='/users')
+router = APIRouter(tags=['Users'], prefix='/users')
 
 
 @router.post('/user', status_code=status.HTTP_201_CREATED, response_model=DisplayUser)

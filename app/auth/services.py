@@ -5,9 +5,9 @@ from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.user.crud import get_user_by_email
-from app.user.hashing import verify_password
-from app.user import models, schemas
+from app.Users.crud import get_user_by_email
+from app.Users.hashing import verify_password
+from app.Users   import models, schemas
 
 SECRET_KEY = '94c9a781047fbfce8393bbe88802577e2f16402d4c8691accb0b22eba110814c'
 ALGORITHM = 'HS256'
