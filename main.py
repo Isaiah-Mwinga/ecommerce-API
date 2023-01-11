@@ -1,21 +1,19 @@
 import os   
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI,APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.database import SessionLocal, engine, Base
+from app.database import Session, engine, Base
 
 
 Base.metadata.create_all(engine)
 
-from fastapi import APIRouter
-from app import auth
 
 app = FastAPI()
-#app.include_router(Users.router)
+app.include_router(Users.router)
 #app.include_router(Categories.router)
 #app.include_router(Computing.router)
-#app.include_router(auth.router)
+app.include_router(auth.router)
 
 
 
@@ -28,3 +26,5 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
