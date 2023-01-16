@@ -1,10 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.security import  OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 from datetime import timedelta
 from . import schemas, services
 from app.database import get_db
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
@@ -14,7 +16,7 @@ router = APIRouter(
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 @router.post("/login", response_model=schemas.Token)
-def login(form: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+def login(form: OAuth2PasswordRequestForm = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     user = services.authenticate_user(email=form.username, password=form.password, db=db)
     if not user:
         raise HTTPException(
