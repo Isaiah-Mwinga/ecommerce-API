@@ -8,6 +8,7 @@ from app.database import get_db
 from app.Users.crud import get_user_by_email
 from app.Users.hashing import verify_password
 from app.Users   import models, schemas
+from app.Users.schemas import User
 
 SECRET_KEY = '94c9a781047fbfce8393bbe88802577e2f16402d4c8691accb0b22eba110814c'
 ALGORITHM = 'HS256'
@@ -21,7 +22,7 @@ def fake_hash_password(password: str):
 def get_user(db, username: str):
     if username in db:
         user_dict = db[username]
-        return UserInDB(**user_dict)
+        return User(**user_dict)
 
 def fake_decode_token(token):
     # This doesn't provide any security at all
