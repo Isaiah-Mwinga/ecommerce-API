@@ -29,17 +29,3 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends(oauth2_scheme), d
         raise HTTPException(status_code=400, detail="Incorrect username or password")
 
     return {"access_token": user.username, "token_type": "bearer"}
-
-#def login(form: OAuth2PasswordRequestForm = Depends(oauth2_scheme), db: Session = Depends(get_db)):
-#    user = services.authenticate_user(email=form.username, password=form.password, db=db)
-#    if not user:
-#        raise HTTPException(
-#            status_code=status.HTTP_401_UNAUTHORIZED,
-#            detail="Incorrect username or password",
-#            headers={"WWW-Authenticate": "Bearer"},
-#        )
-#    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-#    access_token = services.create_access_token(
-#        data={"sub": user.username}, expires_delta=access_token_expires
-#    )
-#    return {"access_token": access_token, "token_type": "bearer"}

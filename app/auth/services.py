@@ -19,7 +19,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 def fake_hash_password(password: str):
     return "fakehashed" + password
 
-def get_user(db, username: str):
+def get_user(db:Session , username: str):
     if username in db:
         user_dict = db[username]
         return User(**user_dict)
@@ -46,39 +46,3 @@ async def get_current_active_user(current_user: User = Depends(get_current_user)
     return current_user
 
 
-#def authenticate_user(email: str, password: str, db: Session) -> models.User | bool:
-#    user = get_user_by_email(email, db)
-#    if not user:
-#        return False
-#    if not verify_password(password, user.password):
-#        return False
-#
-#    return user
-#
-#
-#def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:
-#    to_encode = data.copy()
-#    if expires_delta:
-#        expire = datetime.now() + expires_delta
-#    else:
-#        expire = datetime.now() + timedelta(minutes=DEFAULT_EXPIRES_DELTA)
-#    to_encode.update({'exp': expire})
-#    encoded_data = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-#    return encoded_data
-#
-#
-#def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> schemas.DisplayUser:
-#    credential_error = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
-#                                     detail='Can not validate credentials',
-#                                     headers={'WWW_Authenticate': 'Bearer'})
-#    try:
-#        payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
-#        email = payload.get('sub')
-#        if email is None:
-#            raise credential_error
-#    except JWTError:
-#        raise credential_error
-#
-#    user = get_user_by_email(email, db)
-#
-#    return schemas.DisplayUser.from_orm(user)
