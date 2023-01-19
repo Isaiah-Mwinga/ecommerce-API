@@ -11,7 +11,7 @@ from app.Users.hashing import verify_password
 from app.Users   import models, schemas
 from app.Users.schemas import User
 
-SECRET_KEY = '94c9a781047fbfce8393bbe88802577e2f16402d4c8691accb0b22eba110814c'
+SECRET_KEY = 'ad6a55b39e5000f9544a8963dc8e9c46859a2f99cd6528bf0b6fff5665ed892a'
 ALGORITHM = 'HS256'
 DEFAULT_EXPIRES_DELTA = 15
 
@@ -54,7 +54,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 
 
 
-async def get_current_user(token: str = Depends(oauth2_scheme)):
+async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",

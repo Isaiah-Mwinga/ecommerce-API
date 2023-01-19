@@ -6,11 +6,5 @@ class User(BaseModel):
     email: EmailStr
     password: str
 
-
-class DisplayUser(BaseModel):
-    id: int
-    name: str
-    email: str
-
-    class Config:
-        orm_mode = True
+class UserInDB(User):
+    hashed_password: str

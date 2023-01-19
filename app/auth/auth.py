@@ -5,6 +5,8 @@ from sqlalchemy.orm import Session
 from datetime import timedelta
 from . import schemas, services
 from app.database import get_db
+from app.auth.schemas import Token, TokenData
+from app.auth.services import authenticate_user, create_access_token
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
@@ -18,14 +20,17 @@ router = APIRouter(
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-@router.post("/login", response_model=schemas.Token)
-async def login(form_data: OAuth2PasswordRequestForm = Depends(oauth2_scheme), db: Session = Depends(get_db)):
-    user_dict = db.get(form_data.username)
-    if not user_dict:
-        raise HTTPException(status_code=400, detail="Incorrect username or password")
-    user = User(**user_dict)
-    hashed_password = password(form_data.password)
-    if not hashed_password == user.password:
-        raise HTTPException(status_code=400, detail="Incorrect username or password")
-
-    return {"access_token": user.username, "token_type": "bearer"}
+@router.post("/token", response_model=Token)
+async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    user = authenticate_user(db, form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
