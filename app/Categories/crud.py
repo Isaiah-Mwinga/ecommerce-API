@@ -9,7 +9,7 @@ def create_category(category: schemas.Category, db: Session) -> models.Category:
     return db_category
 
 def get_all_categories(db: Session) -> list[models.Category]:
-        return dbquery(models.Category).all()
+        return db.query(models.Category).all()
 
 def get_category_by_name(name: str, db: Session) -> models.Category:
         return db.query(models.Category).filter(models.Category.name == name).first()
