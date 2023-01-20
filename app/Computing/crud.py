@@ -12,6 +12,10 @@ def create_computing(db: Session, computing: schemas.Computing):
 def get_computing_by_id(db: Session, computing_id: int) -> models.Computing:
      return db.query(models.Computing).filter(models.Computing.id == computing_id).first()
 
+def get_computing_by_name(db: Session, computing_name: str) -> models.Computing:
+        return db.query(models.Computing).filter(models.Computing.name == computing_name).first()
+        
+
 def get_all_computing(db: Session) -> list[models.Computing]:
          return db.query(models.Computing).all()
 
