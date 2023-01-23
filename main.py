@@ -8,6 +8,7 @@ from app import Users,auth
 from app.Users import user
 from app.auth import auth
 from app.Categories import categories
+from app.Computing import Computing
 
 
 Base.metadata.create_all(engine)
@@ -17,7 +18,7 @@ app = FastAPI()
 app.include_router(auth.router)
 app.include_router(user.router)
 app.include_router(categories.router)
-#app.include_router(Computing.router)
+app.include_router(Computing.router)
 
 
 

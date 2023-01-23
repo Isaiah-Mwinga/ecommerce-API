@@ -7,7 +7,7 @@ class Computing(Base):
     __tablename__ = "computings"
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, index=True)
-    category_id = Column(Integer, ForeignKey("categories.id, ondelete='CASCADE"))
+    category_id = Column(Integer, ForeignKey("categories.id"))
     category = relationship("Category", back_populates="Computing")
 
     def __repr__(self):
