@@ -18,7 +18,7 @@ def get_computing_by_name( name: str, db: Session) -> models.Computing:
 
 
 def get_computing_by_id( Computing_id: int, db: Session) -> models.Computing:
-    return db.query(models.Computing).filter(models.Computing.id == id).first()
+    return db.query(models.Computing).filter(models.Computing.id == Computing_id).first()
 
 
 def delete_computing(db: Session, Computing_id: int):

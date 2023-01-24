@@ -8,7 +8,7 @@ class Computing(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, index=True)
     category_id = Column(Integer, ForeignKey("categories.id"))
-    category = relationship("Category", back_populates="Computing")
+    Category = relationship("Category", back_populates="Computing")
 
     def __repr__(self):
         return f"Computing(id={self.id}, name={self.name}, category_id={self.category_id})"
