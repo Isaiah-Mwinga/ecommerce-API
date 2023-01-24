@@ -2,7 +2,7 @@ from app.Computing import models, schemas
 from sqlalchemy.orm import Session
 from app.database import get_db
 
-def create_computing(db: Session, computing: schemas.Computing):
+def create_computing(Computing: schemas.Computing, db: Session) -> models.Computing:
     db_computing = models.Computing(**Computing.dict())
     db.add(db_computing)
     db.commit()
