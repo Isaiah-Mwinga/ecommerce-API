@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.Laptops import  crud
-from app.Computing import moels, schemas
+from app.Computing import models, schemas
 
 router = APIRouter(tags=["Laptops"], prefix="/Laptops")
 
