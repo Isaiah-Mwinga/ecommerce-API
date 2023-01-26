@@ -2,7 +2,8 @@ from fastapi import HTTPException, status
 from sqlalchemy import and_
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.Computing import models, schemas
+from app.Computing import schemas
+from app.Computing.models.Computing.__repr__ import Laptops
 
 
 def create_Laptops(Laptops: schemas.Laptops, db: Session) -> models.Laptops:
@@ -25,4 +26,4 @@ def get_Laptops_by_id(Laptops_id: int, db: Session) -> models.Laptops:
 def delete_Laptops(db: Session, Laptops_id: int):
     db.query(models.Laptops).filter(models.Laptops.id == id).delete()
     db.commit()
-    
+

@@ -13,19 +13,18 @@ class Computing(Base):
     def __repr__(self):
         return f"Computing(id={self.id}, name={self.name}, category_id={self.category_id})"
 
-        class Laptops(Computing):
-            __tablename__ = "laptops"
-            id = Column(Integer, ForeignKey("computings.id"), primary_key=True)
-            brand = Column(String, index=True)
-            model = Column(String, index=True)
-            price = Column(Integer, index=True)
-            quantity = Column(Integer, index=True)
-            description = Column(String, index=True)
-            image = Column(String, index=True)
+class Laptops(Computing):
+    __tablename__ = "laptops"
+    id = Column(Integer, ForeignKey("computings.id"), primary_key=True)
+    brand = Column(String, index=True)
+    model = Column(String, index=True)
+    price = Column(Integer, index=True)
+    quantity = Column(Integer, index=True)
+    description = Column(String, index=True)
+    image = Column(String, index=True)
 
-            def __repr__(self):
-                return f"Laptops(id={self.id}, name={self.name}, brand={self.brand}, model={self.model}, price={self.price}, quantity={self.quantity}, description={self.description}, image={self.image})"
-
+    def __repr__(self):
+        return f"Laptops(id={self.id}, name={self.name}, brand={self.brand}, model={self.model}, price={self.price}, quantity={self.quantity}, description={self.description}, image={self.image})"
         class Desktops(Computing):
             __tablename__ = "desktops"
             id = Column(Integer, ForeignKey("computings.id"), primary_key=True)
