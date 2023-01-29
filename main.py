@@ -10,6 +10,7 @@ from app.auth import auth
 from app.Categories import categories
 from app.Computing import Computing
 from app.Laptops import Laptops
+from app.Desktops import Desktops
 
 
 Base.metadata.create_all(engine)
@@ -21,6 +22,7 @@ app.include_router(user.router)
 app.include_router(categories.router)
 app.include_router(Computing.router)
 app.include_router(Laptops.router)
+app.include_router(Desktops.router)
 
 
 

@@ -10,6 +10,7 @@ from app.Users.crud import get_user_by_email
 from app.Users.hashing import verify_password
 from app.Users   import models, schemas
 from app.Users.schemas import User
+from app.Users import crud
 
 SECRET_KEY = 'ad6a55b39e5000f9544a8963dc8e9c46859a2f99cd6528bf0b6fff5665ed892a'
 ALGORITHM = 'HS256'
@@ -29,9 +30,7 @@ def get_password_hash(password):
 
 
 def get_user(db, username: str):
-    if username in db:
-        user_dict = db[username]
-        return UserInDB(**user_dict)
+   return db.query(models.User).filter(models.User.username == username).first()
 
 def authenticate_user(db, username: str, password: str):
     user = get_user(db, username)
@@ -68,7 +67,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
         token_data = TokenData(username=username)
     except JWTError:
         raise credentials_exception
-    user = get_user(db, username=token_data.username)
+    user = crud.get_user(db, username=token_data.username)
     if user is None:
         raise credentials_exception
     return user
