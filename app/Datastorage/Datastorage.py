@@ -25,4 +25,17 @@ def get_Datastorage_by_id(Datastorage_id: int, db: Session = Depends(get_db)):
     if not db_Datastorage:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Datastorage not found")
     return db_Datastorage
-    
+
+@router.put("/Datastorage/{Datastorage_id}", status_code=status.HTTP_202_ACCEPTED, response_model=schemas.Datastorage)
+def update_Datastorage(Datastorage_id: int, Datastorage: schemas.Datastorage, db: Session = Depends(get_db)):
+    db_Datastorage = crud.get_Datastorage_by_id(Datastorage_id, db)
+    if not db_Datastorage:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Datastorage not found")
+    return crud.update_Datastorage(Datastorage_id, Datastorage, db)
+
+@router.delete("/Datastorage/{Datastorage_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_Datastorage(Datastorage_id: int, db: Session = Depends(get_db)):
+    db_Datastorage = crud.get_Datastorage_by_id(Datastorage_id, db)
+    if not db_Datastorage:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Datastorage not found")
+    crud.delete_Datastorage(db, Datastorage_id)
