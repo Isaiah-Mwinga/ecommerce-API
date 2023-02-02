@@ -4,6 +4,9 @@ from fastapi.testclient import TestClient
 from app.Users.user import get_all_users, get_user, create_user 
 from sqlalchemy.orm import Session
 from app.database import  get_db
+from main import app
+
+client = TestClient(app)
 
 def test_get_all_users(client: TestClient, db: Session = Depends(get_db)):
     response = get_all_users()

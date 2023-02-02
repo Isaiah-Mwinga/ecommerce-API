@@ -23,6 +23,7 @@ passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 dotenv-python = "^0.0.1"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
 httpx = "^0.23.3"
+python-multipart = "^0.0.5"
 
 
 [build-system]
