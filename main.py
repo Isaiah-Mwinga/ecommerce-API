@@ -11,6 +11,7 @@ from app.Categories import categories
 from app.Computing import Computing
 from app.Laptops import Laptops
 from app.Desktops import Desktops
+from app.Datastorage import Datastorage
 
 
 Base.metadata.create_all(engine)
@@ -23,6 +24,7 @@ app.include_router(categories.router)
 app.include_router(Computing.router)
 app.include_router(Laptops.router)
 app.include_router(Desktops.router)
+app.include_router(Datastorage.router)
 
 
 
