@@ -7,17 +7,17 @@ def test_get_all_users(client: TestClient, db: Session = Depends(get_db)):
     assert response.status_code == 200
     assert response.json() == []
 
-def test_get_user():
+def test_get_user(client: TestClient, db: Session = Depends(get_db)):
     response = get_user(1)
     assert response.status_code == 404
     assert response.json() == {'detail': 'User with id 1 does not exist!'}
 
-def test_create_user():
+def test_create_user(client: TestClient, db: Session = Depends(get_db)):
     response = create_user()
     assert response.status_code == 201
     assert response.json() == {'id': 1, 'email': '  ', 'name': '  ', 'password': '  '}
 
-def test_delete_user():
+def test_delete_user(client: TestClient, db: Session = Depends(get_db)):
     response = delete_user(1)
     assert response.status_code == 204
     assert response.json() == None
