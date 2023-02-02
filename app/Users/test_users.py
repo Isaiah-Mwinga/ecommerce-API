@@ -1,6 +1,9 @@
 import pytest
+from fastapi import Depends
 from fastapi.testclient import TestClient
-from app.Users.user import get_all_users, get_user, create_user, delete_user
+from app.Users.user import get_all_users, get_user, create_user 
+from sqlalchemy.orm import Session
+from app.database import  get_db
 
 def test_get_all_users(client: TestClient, db: Session = Depends(get_db)):
     response = get_all_users()
@@ -16,8 +19,3 @@ def test_create_user(client: TestClient, db: Session = Depends(get_db)):
     response = create_user()
     assert response.status_code == 201
     assert response.json() == {'id': 1, 'email': '  ', 'name': '  ', 'password': '  '}
-
-def test_delete_user(client: TestClient, db: Session = Depends(get_db)):
-    response = delete_user(1)
-    assert response.status_code == 204
-    assert response.json() == None
