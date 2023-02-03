@@ -35,3 +35,11 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
 @router.delete('/{user_id}', status_code=status.HTTP_204_NO_CONTENT)
 def delete_user(user_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     return crud.delete_user_in_db(user_id, db)
+
+@router.put('/user/{user_id}', status_code=status.HTTP_202_ACCEPTED, response_model=UserInDB)
+def update_user(user_id: int, user: User, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_id(user_id, db)
+    if not db_user:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'User with id {user_id} does not exist!')
+
+    return crud.update_user_in_db(user_id, user, db)

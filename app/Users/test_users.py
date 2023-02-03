@@ -1,9 +1,11 @@
 import pytest
 from fastapi import status
 from fastapi.testclient import TestClient
-from fastapi.dependencies import Depends
+
+from main import app
 
 def test_create_user(client: TestClient):
+    client = TestClient(app)
     # Test creating a user with an existing email
     user = {'email': 'existing_email@example.com', 'password': 'password123'}
     response = client.post('/users/', json=user)
