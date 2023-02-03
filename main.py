@@ -12,7 +12,7 @@ from app.Computing import Computing
 from app.Laptops import Laptops
 from app.Desktops import Desktops
 from app.Datastorage import Datastorage
-
+from fastapi.testclient import TestClient
 
 Base.metadata.create_all(engine)
 
@@ -27,7 +27,7 @@ app.include_router(Desktops.router)
 app.include_router(Datastorage.router)
 
 
-
+client = TestClient(app)
 
 # NEW
 app.add_middleware(
