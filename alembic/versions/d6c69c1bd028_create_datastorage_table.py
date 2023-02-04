@@ -16,9 +16,18 @@ branch_labels = None
 depends_on = None
 
 
-def upgrade() -> None:
-    pass
+def upgrade() :
+    op.create_table(
+        'Datastorage',
+        sa.Column('id', sa.Integer, primary_key=True),
+        sa.Column('name', sa.String(50), nullable=False),
+        sa.Column('price', sa.Float, nullable=False),
+        sa.Column('description', sa.String(100), nullable=False),
+        sa.Column('image', sa.String(100), nullable=False),
+        sa.Column('category_id', sa.Integer, sa.ForeignKey('categories.id'), nullable=False),
+        sa.column('computing_id', sa.Integer, sa.ForeignKey('Computing.id'), nullable=False),
+    )
 
 
-def downgrade() -> None:
-    pass
+def downgrade():
+    op.drop_table('Datastorage')
