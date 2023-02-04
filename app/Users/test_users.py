@@ -28,6 +28,7 @@ def test_create_user(client: TestClient):
     assert response.json() == {'detail': 'Input body requires an "email" field.'}
 
 def test_update_user(client: TestClient):
+    client = TestClient(app)
     # First, create a user
     user_data = {
         "email": "test@example.com",
