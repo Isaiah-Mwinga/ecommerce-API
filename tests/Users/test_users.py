@@ -20,7 +20,7 @@ def test_incorrect_get_user():
     assert response.json() == {'detail': f'User with id {wrong_user_id} does not exist!'}
 
 
-def test_emtpy_get_all_users():
+def test_empty_get_all_users():
     response = client.get('/users/all')
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == []
