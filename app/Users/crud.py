@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 
 def create_user_in_db(user: schemas.User, db: Session) -> models.User:
-    new_user = models.User(username=user.username, email=user.email, password=user.password)
+    new_user = models.User(name=user.name, email=user.email, password=user.password)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
