@@ -29,11 +29,11 @@ def get_password_hash(password):
     return pwd_context.hash(password)
 
 
-def get_user(db, username: str):
-   return db.query(models.User).filter(models.User.username == username).first()
+def get_user(db, name: str):
+   return db.query(models.User).filter(models.User.name == name).first()
 
-def authenticate_user(db, username: str, password: str):
-    user = get_user(db, username)
+def authenticate_user(db, name: str, password: str):
+    user = get_user(db, name)
     if not user:
         return False
     if not verify_password(password, user.hashed_password):
@@ -64,10 +64,10 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
-        token_data = TokenData(username=username)
+        token_data = TokenData(name=name)
     except JWTError:
         raise credentials_exception
-    user = crud.get_user(db, username=token_data.username)
+    user = crud.get_user(db, name=token_data.name)
     if user is None:
         raise credentials_exception
     return user
