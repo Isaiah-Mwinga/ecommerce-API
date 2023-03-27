@@ -23,7 +23,6 @@ services:
       - 5050:80
     depends_on:
       - db
-
   app:
     container_name: app
     build: .
@@ -32,6 +31,6 @@ services:
       - .:/app
     ports:
       - 8000:8000
+    restart: always
     depends_on:
       - db
-    restart: always
