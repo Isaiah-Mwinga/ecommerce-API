@@ -3,7 +3,7 @@ from app.Users.schemas import User, UserInDB
 from sqlalchemy.orm import Session
 from app.database import get_db
 from . import crud
-from app.auth.services import get_current_user
+#from app.auth.services import get_current_user
 
 router = APIRouter(tags=['Users'], prefix='/users')
 
@@ -32,9 +32,9 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
     return user
 
 
-@router.delete('/{user_id}', status_code=status.HTTP_204_NO_CONTENT)
-def delete_user(user_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    return crud.delete_user_in_db(user_id, db)
+#@router.delete('/{user_id}', status_code=status.HTTP_204_NO_CONTENT)
+#def delete_user(user_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+#    return crud.delete_user_in_db(user_id, db)
 
 @router.put('/user/{user_id}', status_code=status.HTTP_202_ACCEPTED, response_model=UserInDB)
 def update_user(user_id: int, user: User, db: Session = Depends(get_db)):
