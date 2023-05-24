@@ -18,7 +18,7 @@ depends_on = None
 
 def upgrade():
     op.create_table(
-        "computing",
+        "Computing",
         sa.Column("id", sa.Integer, primary_key=True, index=True),
         sa.Column("name", sa.String, unique=True, index=True),
         sa.Column("category_id", sa.Integer, sa.ForeignKey("categories.id")),
@@ -26,4 +26,4 @@ def upgrade():
 
 
 def downgrade() -> None:
-    op.drop_table("computing")
+    op.drop_table("Computing")

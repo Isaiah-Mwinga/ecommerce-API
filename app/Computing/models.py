@@ -13,7 +13,7 @@ class Computing(Base):
     def __repr__(self):
         return f"Computing(id={self.id}, name={self.name}, category_id={self.category_id})"
 
-class Laptops(Computing):
+class Laptops(Base):
     __tablename__ = "laptops"
     id = Column(Integer, ForeignKey("computings.id"), primary_key=True)
     brand = Column(String, index=True)
