@@ -3,8 +3,7 @@ from app.Users.schemas import User, UserInDB
 from sqlalchemy.orm import Session
 from app.database import get_db
 from . import crud
-#from app.auth.services import get_current_user
-
+from app.auth.services import get_current_user
 router = APIRouter(tags=['Users'], prefix='/users')
 
 
