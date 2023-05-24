@@ -1,10 +1,10 @@
-from pydantic import BaseModel, constr, EmailStr
+from pydantic import BaseModel
 
 
 class User(BaseModel):
-    name: constr(min_length=2, max_length=50)
-    email: EmailStr
-    password: str
+    username: str | None = None
+    email: str | None = None
+    password: str | None = None
 
 class UserInDB(User):
     hashed_password: str
